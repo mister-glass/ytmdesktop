@@ -76,6 +76,14 @@ ipc.on( 'downloaded-new-update', function( e, data ) {
     document.getElementById( 'btn-update' ).classList.remove( 'hide' );
 } );
 
+ipc.on( 'register-to-ytmdesktop', function(e, data){
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+    var theUrl = "https://oo58dbzvuh.execute-api.us-west-1.amazonaws.com/default/ytmdesktop-register";
+    xmlhttp.open("POST", theUrl);
+    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlhttp.send(data);
+})
+
 ipc.on( 'update-status-bar', function (event, arg) {
 
     ctx.clearRect(0,0, canvas.width, canvas.height);

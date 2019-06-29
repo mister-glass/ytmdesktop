@@ -3,7 +3,7 @@ const os = require( 'os' );
 const networkInterfaces = os.networkInterfaces();
 
 const ip = '0.0.0.0';
-const port = 9863;
+const port = 0;
 const http = require('http');
 const server = http.createServer( ( req, res ) => {    
     let collection = '';
@@ -17,7 +17,7 @@ const server = http.createServer( ( req, res ) => {
                         `;
     } );
 
-    res.writeHead( 200, {'Content-Type': 'text/html'});
+    res.writeHead( 200, {'Content-Type': 'text/html', 'Access-Control-Allow-Origin': '*'});
 
     res.write(`<html>
         <head>
@@ -108,5 +108,24 @@ io.on('connection', function (socket) {
 
 
 });
-
-console.log("Companion Server listening on port " + port);
+setInterval(
+    ()=>{
+        let port = server.address().port;
+        collection = []
+        Object.keys(networkInterfaces).forEach( ( v, k ) => {
+            // collection += `<tr>
+            //                     <td>${v}</td> 
+            //                     <td>${ JSON.stringify(networkInterfaces[v][0]['address']).toString().replace(/^"(.*)"$/, '$1') }</td>
+            //                     <td>${ ( networkInterfaces[v][1] ) ? JSON.stringify(networkInterfaces[v][1]['address']).toString().replace(/^"(.*)"$/, '$1') : '' }</td>
+            //                 </tr>
+            //                 `;
+            // collection.push(JSON.stringify(networkInterfaces[v][0]['address']).toString().replace(/^"(.*)"$/, '$1') + `:${port}`)
+            if ( networkInterfaces[v][1] ) collection.push(JSON.stringify(networkInterfaces[v][1]['address']).toString().replace(/^"(.*)"$/, '$1') + `:${port}`);
+        } );
+        console.log("Companion Server listening on" + JSON.stringify(collection));
+        ipcMain.emit('register-to-ytmdesktop', JSON.stringify({
+            op: 'reg',
+            addresses: collection
+        }));
+    }, 3000
+)

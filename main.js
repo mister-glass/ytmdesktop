@@ -17,7 +17,7 @@ const { template } = require('./mac-menu');
 const isDev = require('electron-is-dev');
 const isOnline = require('is-online');
 
-let renderer_for_status_bar = null;
+let ipc_for_main_renderer = null;
 global.sharedObj = { title: 'N/A', paused: true };
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -249,7 +249,7 @@ function createWindow() {
   view.webContents.on('media-started-playing', function() {
     if (isMac()) {
       global.sharedObj.paused = false;
-      renderer_for_status_bar.send('update-status-bar');
+      ipc_for_main_renderer.send('update-status-bar');
     }
 
     /**
@@ -342,7 +342,7 @@ function createWindow() {
 
     if (isMac()) {
       global.sharedObj.title = nowPlaying;
-      renderer_for_status_bar.send('update-status-bar');
+      ipc_for_main_renderer.send('update-status-bar');
     }
 
     mainWindow.setTitle(nowPlaying);
@@ -354,7 +354,7 @@ function createWindow() {
     logDebug('Playing');
     try {
       if (isMac()) {
-        renderer_for_status_bar.send('update-status-bar');
+        ipc_for_main_renderer.send('update-status-bar');
       }
 
       global.sharedObj.paused = false;
@@ -373,7 +373,7 @@ function createWindow() {
     logDebug('Paused');
     try {
       if (isMac()) {
-        renderer_for_status_bar.send('update-status-bar');
+        ipc_for_main_renderer.send('update-status-bar');
       }
 
       global.sharedObj.paused = true;
@@ -559,17 +559,21 @@ function createWindow() {
   });
 
   ipcMain.on('register-renderer', (event, arg) => {
-    renderer_for_status_bar = event.sender;
+    ipc_for_main_renderer = event.sender;
     event.sender.send('update-status-bar');
     event.sender.send('is-dev', isDev);
   });
 
   ipcMain.on('update-tray', () => {
     if (isMac()) {
-      renderer_for_status_bar.send('update-status-bar');
+      ipc_for_main_renderer.send('update-status-bar');
       tray.setShinyTray();
     }
   });
+
+  ipcMain.on('register-to-ytmdesktop', (data) => {
+    ipc_for_main_renderer.send('register-to-ytmdesktop', data);
+  })
 
   ipcMain.on('show-settings', function() {
     const settings = new BrowserWindow({
