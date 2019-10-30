@@ -31,6 +31,12 @@ npm start
 
 Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
 
+<<<<<<< HEAD
+=======
+## Linux Distribution Packages
+
+- Arch Linux (AUR): https://aur.archlinux.org/packages/ytmdesktop-git
+>>>>>>> 4dca8650c237c750bc064f43d1f43f4abfdb475a
 
 ## License
 
@@ -43,4 +49,9 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 [<img alt="kyjus25" src="https://avatars2.githubusercontent.com/u/6710794?s=120&v=4" width="120px">](https://github.com/kyjus25)
 [<img alt="tbvjaos510" src="https://avatars0.githubusercontent.com/u/32216112?s=120&v=4" width="120px">](https://github.com/tbvjaos510)
 [<img alt="KimVuu" src="https://avatars3.githubusercontent.com/u/23237044?s=1200&v=4" width="120px">](https://github.com/KimVuu)
+<<<<<<< HEAD
 [<img alt="Venipa" src="https://avatars1.githubusercontent.com/u/17952364?s=1200&v=4" width="120px">](https://github.com/Venipa)
+=======
+[<img alt="Venipa" src="https://avatars1.githubusercontent.com/u/17952364?s=1200&v=4" width="120px">](https://github.com/Venipa)
+[<img alt="garfunkel" src="https://avatars1.githubusercontent.com/u/2189900?s=120&v=4" width="120px">](https://github.com/garfunkel)
+>>>>>>> 4dca8650c237c750bc064f43d1f43f4abfdb475a
