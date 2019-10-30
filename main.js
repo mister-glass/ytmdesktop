@@ -40,6 +40,8 @@ let mainWindowSize = {
   height: 800
 };
 
+"test";
+
 let songTitle = "";
 let songAuthor = "";
 let songCover = "";
